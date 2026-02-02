@@ -1,0 +1,34 @@
+services:
+  - type: web
+    name: medical-chatbot
+    env: python
+    region: ohio
+    buildCommand: |
+      pip install --upgrade pip
+      pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: FLASK_SECRET_KEY
+        generateValue: true
+      - key: GROQ_API_KEY
+        sync: false
+      - key: PINECONE_API_KEY
+        sync: false
+      - key: LANGSMITH_API_KEY
+        sync: false
+      - key: LANGCHAIN_TRACING_V2
+        value: "true"
+      - key: LANGCHAIN_ENDPOINT
+        value: "https://api.smith.langchain.com"
+      - key: LANGCHAIN_PROJECT
+        value: "medical-chatbot-render"
+      - key: LANGSMITH_SAMPLE_RATE
+        value: "0.1"
+      - key: PORT
+        value: 10000
+    plans:
+      - name: free
+        slug: free
+        

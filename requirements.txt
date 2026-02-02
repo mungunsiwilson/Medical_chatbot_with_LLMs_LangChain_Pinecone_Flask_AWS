@@ -14,4 +14,7 @@ langchain_tavily
 langchain-mcp-adapters
 mcp
 langchain-anthropic
+langchain-core
+pinecone-client
+gunicorn
 -e .
